@@ -279,15 +279,16 @@ function initHeroArt() {
    nav, footer and about strip automatically — zero code changes.
    Probes common filenames; detects square badge vs. wide lockup. */
 function initBrandLogo() {
+  const v = window.TFS_ASSET_V ? ('?v=' + window.TFS_ASSET_V) : '';
   const candidates = [
-    'assets/logo.png', 'assets/logo.svg', 'assets/logo.webp',
+    'assets/logo.svg', 'assets/logo.png', 'assets/logo.webp',
     'assets/logo.jpg', 'assets/logo.jpeg', 'logo.png',
   ];
   let i = 0;
   const probe = new Image();
   probe.onload = () => applyBrandLogo(probe.src);
-  probe.onerror = () => { if (++i < candidates.length) probe.src = candidates[i]; };
-  probe.src = candidates[0];
+  probe.onerror = () => { if (++i < candidates.length) probe.src = candidates[i] + v; };
+  probe.src = candidates[0] + v;
 }
 function applyBrandLogo(src) {
   document.body.classList.add('has-brand-logo');
